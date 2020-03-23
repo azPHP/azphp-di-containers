@@ -1,0 +1,31 @@
+{
+    "name": "azphp/di-containers",
+    "description": "Samples of DI container configurations",
+    "type": "project",
+    "require": {
+        "php-di/php-di": "^6.0",
+        "league/container": "^3.3",
+        "rdlowrey/auryn": "^1.4"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master",
+        "phpunit/phpunit": "^9.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "AZphp\\DI\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AZphpTests\\DI\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gordon",
+            "email": "baohx2000@gmail.com"
+        }
+    ]
+}
