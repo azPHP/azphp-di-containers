@@ -21,7 +21,8 @@ class BootstrapTest extends TestCase
         $configs = [
             // alias logger interface
             static function (Injector $container): Injector {
-                return $container->alias(LoggerInterface::class, TestLogger::class)
+                return $container
+                    ->alias(LoggerInterface::class, TestLogger::class)
                     ->share(LoggerInterface::class);
             },
             // specify api key for Thing
@@ -36,6 +37,8 @@ class BootstrapTest extends TestCase
 
         /** @var Thing $thing */
         $thing = $di->make(Thing::class);
+        $thing2 = $di->make(Thing::class);
+        $this->assertNotEquals(spl_object_hash($thing), spl_object_hash($thing2));
         $this->assertInstanceOf(Thing::class, $thing);
         $this->assertInstanceOf(TestLogger::class, $thing->logger);
 
@@ -44,6 +47,7 @@ class BootstrapTest extends TestCase
         /** @var TestLogger $logger */
         $logger = $di->make(LoggerInterface::class);
 
+        $this->assertEquals(spl_object_hash($logger), spl_object_hash($thing->logger));
         $this->assertTrue($logger->hasRecords('info'), 'Logger was not shared :(');
     }
 }

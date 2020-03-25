@@ -3,6 +3,7 @@
 namespace AZphpTests\DI\League;
 
 use AZphp\DI\Constants;
+use AZphp\DI\EntityManager;
 use AZphp\DI\League\Bootstrap;
 use AZphp\DI\Thing;
 use League\Container\Container;
@@ -25,9 +26,12 @@ class BootstrapTest extends TestCase
             },
             // specify api key for Thing
             static function (Container $container) {
+                //$container->add(EntityManager::class, EntityManager::class);
+
                 $container->add(Thing::class)
                     ->addArgument(LoggerInterface::class) // Why should we have to do this? It should be taken care of by autowiring!
                     ->addArgument(Constants::THING_API_KEY)
+                    ->addArgument(EntityManager::class)
                     // we have a third constructor argument, but it's a class so autowiring should take care of it, right?
                 ;
             },

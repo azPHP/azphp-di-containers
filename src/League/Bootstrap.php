@@ -6,6 +6,7 @@ namespace AZphp\DI\League;
 
 use AZphp\DI\BootstrapInterface;
 use League\Container\Container;
+use League\Container\ReflectionContainer;
 
 class Bootstrap implements BootstrapInterface
 {
@@ -17,6 +18,7 @@ class Bootstrap implements BootstrapInterface
     public function __construct()
     {
         $this->container = new Container();
+        $this->container->delegate(new ReflectionContainer());
     }
 
     public function boot(): Container
