@@ -18,34 +18,33 @@ class BootstrapTest extends TestCase
 
         $configs = [
             // alias logger interface
-            static function ($c) {
-                return $c(LoggerInterface::class, fn () => new TestLogger());
+            static function ($µ) {
+                return $µ(LoggerInterface::class, new TestLogger());
             },
-            static function ($c) {
-                return $c(EntityManager::class, fn () => new EntityManager());
+            static function ($µ) {
+                return $µ(EntityManager::class, new EntityManager());
             },
             // specify api key for Thing
-            static function ($c) {
-                return $c(
-                    Thing::class,
-                    fn ($c) => new Thing($c(LoggerInterface::class), Constants::THING_API_KEY, $c(EntityManager::class))
-                );
+            static function ($µ) {
+                return $µ(Thing::class, function ($µ) {
+                    return new Thing($µ(LoggerInterface::class), Constants::THING_API_KEY, $µ(EntityManager::class));
+                });
             },
         ];
 
         $bootstrap->prepare($configs);
 
-        $di = $bootstrap->boot();
+        $µ = $bootstrap->boot();
 
         /** @var Thing $thing */
-        $thing = $di(Thing::class);
+        $thing = $µ(Thing::class);
         $this->assertInstanceOf(Thing::class, $thing);
         $this->assertInstanceOf(TestLogger::class, $thing->logger);
 
         $thing->run();
 
         /** @var TestLogger $logger */
-        $logger = $di(LoggerInterface::class);
+        $logger = $µ(LoggerInterface::class);
 
         $this->assertTrue($logger->hasRecords('info'), 'Logger was not shared :(');
     }
