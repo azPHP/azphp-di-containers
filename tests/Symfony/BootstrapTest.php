@@ -5,9 +5,10 @@ namespace AZphpTests\DI\Symfony;
 use AZphp\DI\Constants;
 use AZphp\DI\Symfony\Bootstrap;
 use AZphp\DI\Thing;
+use Monolog\Handler\TestHandler;
+use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Psr\Log\Test\TestLogger;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 
@@ -21,7 +22,11 @@ class BootstrapTest extends TestCase
         $configs = [
             // alias logger interface
             static function (ContainerBuilder $container) {
-                $container->setAlias(LoggerInterface::class, TestLogger::class);
+                $container->autowire(LoggerInterface::class, Logger::class)
+                    ->setArgument('name', 'mylogger')
+                    ->setArgument('handlers', [
+                        $container->get(TestHandler::class),
+                    ]);
             },
             // specify api key for Thing
             static function (ContainerBuilder $container) {

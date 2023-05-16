@@ -7,9 +7,10 @@ use AZphp\DI\EntityManager;
 use AZphp\DI\League\Bootstrap;
 use AZphp\DI\Thing;
 use League\Container\Container;
+use Monolog\Handler\TestHandler;
+use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Psr\Log\Test\TestLogger;
 
 
 class BootstrapTest extends TestCase
@@ -22,7 +23,14 @@ class BootstrapTest extends TestCase
         $configs = [
             // alias logger interface
             static function (Container $container) {
-                $container->add(LoggerInterface::class, TestLogger::class, true);
+                $container->addShared(LoggerInterface::class, Logger::class)
+                    ->addArguments([
+                        'name' => 'mylogger',
+                        'handlers' => [
+                            // container not fully configured yet so :(
+                            $container->get(TestHandler::class),
+                        ]
+                    ]);
             },
             // specify api key for Thing
             static function (Container $container) {
@@ -44,13 +52,15 @@ class BootstrapTest extends TestCase
         /** @var Thing $thing */
         $thing = $di->get(Thing::class);
         $this->assertInstanceOf(Thing::class, $thing);
-        $this->assertInstanceOf(TestLogger::class, $thing->logger);
+        $this->assertInstanceOf(Logger::class, $thing->logger);
 
         $thing->run();
 
-        /** @var TestLogger $logger */
+        /** @var Logger $logger */
         $logger = $di->get(LoggerInterface::class);
+        /** @var TestHandler $handler */
+        $handler = $logger->getHandlers()[0];
 
-        $this->assertTrue($logger->hasRecords('info'), 'Logger was not shared :(');
+        $this->assertTrue($handler->hasRecords('info'), 'Logger was not shared :(');
     }
 }

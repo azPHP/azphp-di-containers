@@ -3,11 +3,13 @@
     "description": "Samples of DI container configurations",
     "type": "project",
     "require": {
-        "php-di/php-di": "^6.0",
-        "league/container": "^3.3",
+        "php": "^8.1",
+        "php-di/php-di": "^7.0",
+        "league/container": "^4.2",
         "rdlowrey/auryn": "^1.4",
-        "psr/log": "^1.1",
-        "symfony/dependency-injection": "^5.0"
+        "psr/log": "^3.0",
+        "symfony/dependency-injection": "^6.2",
+        "monolog/monolog": "^3.3"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",

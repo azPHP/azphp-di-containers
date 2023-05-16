@@ -5,11 +5,11 @@ namespace AZphpTests\DI\PHPDi;
 use AZphp\DI\Constants;
 use AZphp\DI\PHPDi\Bootstrap;
 use AZphp\DI\Thing;
+use Monolog\Handler\TestHandler;
+use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Psr\Log\Test\TestLogger;
 
-use function DI\create;
 use function DI\autowire;
 
 class BootstrapTest extends TestCase
@@ -20,9 +20,15 @@ class BootstrapTest extends TestCase
         $bootstrap = new Bootstrap();
         $configs = [
             // alias logger interface
-            LoggerInterface::class => create(TestLogger::class),
+            LoggerInterface::class => autowire(Logger::class)
+                ->constructorParameter('name', 'mylogger')
+                ->constructorParameter('handlers', [
+                    new TestHandler(),
+                ]),
             // specify api key for Thing
             Thing::class => autowire(Thing::class)
+                // this is not even remotely possible, even the docs for php-di say so
+                ->constructorParameter('logger', LoggerInterface::class)
                 ->constructorParameter('apiKey', Constants::THING_API_KEY),
         ];
 
@@ -33,13 +39,15 @@ class BootstrapTest extends TestCase
         /** @var Thing $thing */
         $thing = $di->make(Thing::class);
         $this->assertInstanceOf(Thing::class, $thing);
-        $this->assertInstanceOf(TestLogger::class, $thing->logger);
+        $this->assertInstanceOf(Logger::class, $thing->logger);
 
         $thing->run();
 
-        /** @var TestLogger $logger */
+        /** @var Logger $logger */
         $logger = $di->make(LoggerInterface::class);
+        /** @var TestHandler $handler */
+        $handler = $logger->getHandlers()[0];
 
-        $this->assertTrue($logger->hasRecords('info'), 'Logger was not shared :(');
+        $this->assertTrue($handler->hasRecords('info'), 'Logger was not shared :(');
     }
 }
