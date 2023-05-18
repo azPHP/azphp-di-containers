@@ -4,8 +4,140 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "668576463748f85ad5781082b07c706c",
+    "content-hash": "6da54bc2fc6b5b9ffc8c6049e81e8dab",
     "packages": [
+        {
+            "name": "amphp/injector",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/amphp/injector.git",
+                "reference": "edf59c760eb0e8194814507e6ba207af109b8008"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/amphp/injector/zipball/edf59c760eb0e8194814507e6ba207af109b8008",
+                "reference": "edf59c760eb0e8194814507e6ba207af109b8008",
+                "shasum": ""
+            },
+            "require": {
+                "kelunik/fiber-local": "^1-dev",
+                "php": ">=8.0",
+                "psr/container": "^1.1 | ^2"
+            },
+            "require-dev": {
+                "amphp/php-cs-fixer-config": "dev-master",
+                "monolog/monolog": "^2.2",
+                "ocramius/proxy-manager": "^2.11.1",
+                "phpbench/phpbench": "^1.0",
+                "phpunit/phpunit": "^9.5.2"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions.php",
+                    "src/Internal/functions.php"
+                ],
+                "psr-4": {
+                    "Amp\\Injector\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Lowrey",
+                    "email": "rdlowrey@gmail.com",
+                    "homepage": "https://github.com/rdlowrey"
+                },
+                {
+                    "name": "Levi Morrison",
+                    "email": "levim@php.net",
+                    "homepage": "http://morrisonlevi.github.com/"
+                },
+                {
+                    "name": "Dan Ackroyd",
+                    "email": "Danack@basereality.com",
+                    "homepage": "http://www.basereality.com"
+                },
+                {
+                    "name": "Niklas Keller",
+                    "email": "me@kelunik.com"
+                }
+            ],
+            "description": "A dependency injector for bootstrapping object-oriented PHP applications.",
+            "homepage": "https://github.com/amphp/injector",
+            "keywords": [
+                "dependency injection",
+                "dic",
+                "ioc"
+            ],
+            "support": {
+                "issues": "https://github.com/amphp/injector/issues",
+                "source": "https://github.com/amphp/injector/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/amphp",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-13T19:21:41+00:00"
+        },
+        {
+            "name": "kelunik/fiber-local",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kelunik/fiber-local.git",
+                "reference": "403e5b9375ace500b902bff541b6084f0f4bd312"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kelunik/fiber-local/zipball/403e5b9375ace500b902bff541b6084f0f4bd312",
+                "reference": "403e5b9375ace500b902bff541b6084f0f4bd312",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kelunik\\FiberLocal\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Niklas Keller",
+                    "email": "me@kelunik.com"
+                }
+            ],
+            "description": "Fiber local data storage.",
+            "support": {
+                "issues": "https://github.com/kelunik/fiber-local/issues",
+                "source": "https://github.com/kelunik/fiber-local/tree/main"
+            },
+            "time": "2021-05-17T17:45:52+00:00"
+        },
         {
             "name": "laravel/serializable-closure",
             "version": "v1.3.0",
@@ -477,25 +609,25 @@
         },
         {
             "name": "rdlowrey/auryn",
-            "version": "v1.4.4",
+            "version": "dev-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rdlowrey/auryn.git",
-                "reference": "dae57592229d313b59414a2c8334e61e6eb00928"
+                "reference": "4cd4b4e066aca9add697142062d7bdc7a4311645"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rdlowrey/auryn/zipball/dae57592229d313b59414a2c8334e61e6eb00928",
-                "reference": "dae57592229d313b59414a2c8334e61e6eb00928",
+                "url": "https://api.github.com/repos/rdlowrey/auryn/zipball/4cd4b4e066aca9add697142062d7bdc7a4311645",
+                "reference": "4cd4b4e066aca9add697142062d7bdc7a4311645",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=7.2.0"
             },
             "require-dev": {
-                "athletic/athletic": "~0.1",
-                "fabpot/php-cs-fixer": "~1.9",
-                "phpunit/phpunit": "^4.8"
+                "friendsofphp/php-cs-fixer": "3.3.1",
+                "phpbench/phpbench": "1.1.1",
+                "symfony/phpunit-bridge": "^6.2.0"
             },
             "type": "library",
             "autoload": {
@@ -536,9 +668,9 @@
             ],
             "support": {
                 "issues": "https://github.com/rdlowrey/auryn/issues",
-                "source": "https://github.com/rdlowrey/auryn/tree/v1.4.4"
+                "source": "https://github.com/rdlowrey/auryn/tree/dev"
             },
-            "time": "2021-03-04T20:26:52+00:00"
+            "time": "2023-04-22T11:26:47+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -3195,6 +3327,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "rdlowrey/auryn": 20,
+        "amphp/injector": 20,
+        "kelunik/fiber-local": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,

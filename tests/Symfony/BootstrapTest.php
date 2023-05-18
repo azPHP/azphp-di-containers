@@ -44,13 +44,15 @@ class BootstrapTest extends TestCase
         /** @var Thing $thing */
         $thing = $di->get(Thing::class);
         $this->assertInstanceOf(Thing::class, $thing);
-        $this->assertInstanceOf(TestLogger::class, $thing->logger);
+        $this->assertInstanceOf(Logger::class, $thing->logger);
 
         $thing->run();
 
-        /** @var TestLogger $logger */
+        /** @var Logger $logger */
         $logger = $di->get(LoggerInterface::class);
+        /** @var TestHandler $handler */
+        $handler = $logger->getHandlers()[0];
 
-        $this->assertTrue($logger->hasRecords('info'), 'Logger was not shared :(');
+        $this->assertTrue($handler->hasRecords('info'), 'Logger was not shared :(');
     }
 }

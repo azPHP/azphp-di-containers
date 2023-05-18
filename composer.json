@@ -6,10 +6,12 @@
         "php": "^8.1",
         "php-di/php-di": "^7.0",
         "league/container": "^4.2",
-        "rdlowrey/auryn": "^1.4",
+        "rdlowrey/auryn": "dev-dev",
         "psr/log": "^3.0",
         "symfony/dependency-injection": "^6.2",
-        "monolog/monolog": "^3.3"
+        "monolog/monolog": "^3.3",
+        "amphp/injector": "dev-master",
+        "kelunik/fiber-local": "dev-main"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
